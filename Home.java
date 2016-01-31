@@ -1,5 +1,6 @@
 package com.motherslove.stephnoutsa.mothersloveteam;
 
+import android.content.Intent;
 import android.os.Bundle;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
@@ -57,8 +58,13 @@ public class Home extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.go_to_home) {
+            Intent i = new Intent(this, Home.class);
+            startActivity(i);
+        }
+        if (id == R.id.go_to_contacts) {
+            Intent i = new Intent(this, Contacts.class);
+            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);
