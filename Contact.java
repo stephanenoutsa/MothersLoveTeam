@@ -7,7 +7,7 @@ public class Contact {
 
     // Private variables
     int _contactid;
-    int contactphone;
+    long contactphone;
     String contactlmp;
 
     // Emptry constructor
@@ -16,14 +16,14 @@ public class Contact {
     }
 
     // Constructor
-    public Contact(int _contactid, int contactphone, String contactlmp) {
+    public Contact(int _contactid, long contactphone, String contactlmp) {
         this._contactid = _contactid;
         this.contactphone = contactphone;
         this.contactlmp = contactlmp;
     }
 
     // Constructor
-    public Contact(int contactphone, String contactlmp) {
+    public Contact(long contactphone, String contactlmp) {
         this.contactphone = contactphone;
         this.contactlmp = contactlmp;
     }
@@ -50,11 +50,11 @@ public class Contact {
         this.contactlmp = contactlmp;
     }
 
-    public int getContactphone() {
+    public long getContactphone() {
         return contactphone;
     }
 
-    public void setContactphone(int contactphone) {
+    public void setContactphone(long contactphone) {
         this.contactphone = contactphone;
     }
 }
