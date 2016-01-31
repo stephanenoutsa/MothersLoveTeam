@@ -1,31 +1,45 @@
 package com.motherslove.stephnoutsa.mothersloveteam;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+//import android.support.design.widget.FloatingActionButton;
+//import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class Home extends AppCompatActivity {
+
+    EditText numberField, lmpField;
+    MyDBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
+
+        numberField = (EditText) findViewById(R.id.numberField);
+        lmpField = (EditText) findViewById(R.id.lmpField);
+        dbHandler = new MyDBHandler(this, null, null, 1);
+    }
+
+    public void onClickSave(View view) {
+        Contact contact = new Contact(Integer.parseInt(numberField.getText().toString()), lmpField.getText().toString());
+        dbHandler.addContact(contact);
     }
 
     @Override
