@@ -45,6 +45,11 @@ public class Home extends AppCompatActivity {
         lmpField.setText("");
     }
 
+    public void onClickDelete(View view) {
+        int contactphone = Integer.parseInt(numberField.getText().toString());
+        dbHandler.deleteContact(contactphone);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

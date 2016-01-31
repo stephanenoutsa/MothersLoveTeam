@@ -46,6 +46,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    // Delete a contact from the CONTACTS table
+    public void deleteContact(int contactphone) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_CONTACTS + " WHERE " + CONTACT_COLUMN_PHONE + " = " + contactphone + ";");
+    }
+
     // Get the LMP
     public String getLMP() {
         SQLiteDatabase db = this.getWritableDatabase();
