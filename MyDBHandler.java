@@ -79,4 +79,29 @@ public class MyDBHandler extends SQLiteOpenHelper {
             db.close();
         }
     }
+
+    // Print out database as a String
+    public String databaseToString() {
+        String dbString = "";
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_CONTACTS + " WHERE 1";
+
+        // Cursor to point to a location in your results
+        Cursor c = db.rawQuery(query, null);
+
+        // Move to the first row in your results
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if(c.getString(c.getColumnIndex("contactphone")) != null && c.getString(c.getColumnIndex("contactlmp")) != null) {
+                dbString += c.getString(c.getColumnIndex("contactphone"));
+                dbString += "\t";
+                dbString += c.getString(c.getColumnIndex("contactlmp"));
+                dbString += "\n";
+            }
+        }
+        db.close();
+
+        return dbString;
+    }
 }
