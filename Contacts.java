@@ -36,7 +36,14 @@ public class Contacts extends AppCompatActivity {
 
         contacts = (TextView) findViewById(R.id.contacts);
         dbHandler = new MyDBHandler(this, null, null, 1);
-        dbString = dbHandler.databaseToString();
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                dbString = dbHandler.databaseToString();
+            }
+        };
+        Thread thread = new Thread(r);
+        thread.start();
         contacts.setText(dbString);
     }
 
