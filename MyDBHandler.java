@@ -17,7 +17,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String CONTACT_COLUMN_LMP = "contactlmp";
 
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
     @Override
