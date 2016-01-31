@@ -41,6 +41,8 @@ public class Home extends AppCompatActivity {
     public void onClickSave(View view) {
         Contact contact = new Contact(Integer.parseInt(numberField.getText().toString()), lmpField.getText().toString());
         dbHandler.addContact(contact);
+        numberField.setText("");
+        lmpField.setText("");
     }
 
     @Override
