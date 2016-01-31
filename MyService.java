@@ -68,6 +68,9 @@ public class MyService extends Service {
             }
         };
 
+        Thread stephThread = new Thread(r);
+        stephThread.start();
+
         return START_STICKY;
     }
 }
