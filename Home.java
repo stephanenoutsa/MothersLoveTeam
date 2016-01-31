@@ -1,5 +1,8 @@
 package com.motherslove.stephnoutsa.mothersloveteam;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.support.design.widget.FloatingActionButton;
@@ -43,6 +46,15 @@ public class Home extends AppCompatActivity {
         dbHandler.addContact(contact);
         numberField.setText("");
         lmpField.setText("");
+
+        // Start service
+        Intent service = new Intent(this, MyService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0, service, 0);
+
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                0, 2 * 1000 * 60,
+                pendingIntent);
     }
 
     public void onClickDelete(View view) {
