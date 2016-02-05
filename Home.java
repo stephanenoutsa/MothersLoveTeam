@@ -68,7 +68,7 @@ public class Home extends AppCompatActivity {
     }
 
     public void onClickDelete(View view) {
-        long contactphone = Long.parseLong(numberField.getText().toString());
+        String contactphone = numberField.getText().toString();
         dbHandler.deleteContact(contactphone);
     }
 
