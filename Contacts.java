@@ -11,11 +11,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class Contacts extends AppCompatActivity {
 
     TextView contacts;
-    String dbString;
+    String dbString = "";
     MyDBHandler dbHandler;
+    List<Contact> dbContacts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,13 @@ public class Contacts extends AppCompatActivity {
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                dbString = dbHandler.databaseToString();
+                //dbString = dbHandler.databaseToString();
+                int i = 0;
+                dbContacts = dbHandler.getAllContacts();
+                for(Contact cn : dbContacts) {
+                    dbString += i + "    " + cn.getContactphone() + "    " + cn.getContactlmp() + "\n";
+                    i++;
+                }
             }
         };
         Thread thread = new Thread(r);
