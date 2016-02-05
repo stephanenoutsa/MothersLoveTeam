@@ -70,7 +70,7 @@ public class MyService extends Service {
 
                     if(diff < 1) {
                         String contactphone = dbHandler.getPhone();
-                        String smsBody = "It's been less than a week, but anything can. Don\'t forget your ANC next week";
+                        String smsBody = "It's been less than a week, but anything can happen. Don\'t forget your ANC next week";
 
                         String SMS_SENT = "SMS_SENT";
                         String SMS_DELIVERED = "SMS_DELIVERED";
