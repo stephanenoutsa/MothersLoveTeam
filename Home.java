@@ -2,8 +2,10 @@ package com.motherslove.stephnoutsa.mothersloveteam;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
@@ -55,6 +57,14 @@ public class Home extends AppCompatActivity {
         alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 0, 2 * 1000 * 60,
                 pendingIntent);
+
+        // Enable receiver when device boots
+        ComponentName receiver = new ComponentName(this, BootReceiver.class);
+        PackageManager pm = this.getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
     }
 
     public void onClickDelete(View view) {
