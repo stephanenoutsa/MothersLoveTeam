@@ -28,11 +28,6 @@ public class Contact {
         this.contactlmp = contactlmp;
     }
 
-    // Constructor
-    public Contact(String contactlmp) {
-        this.contactlmp = contactlmp;
-    }
-
     // Getter and Setter methods
     public int get_contactid() {
         return _contactid;
