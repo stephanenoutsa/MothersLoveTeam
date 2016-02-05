@@ -24,7 +24,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_CONTACTS + "(" +
                 CONTACT_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + ", " +
-                CONTACT_COLUMN_PHONE + " INT " + ", " +
+                CONTACT_COLUMN_PHONE + " TEXT " + ", " +
                 CONTACT_COLUMN_LMP + " DATE" +
                 ")";
         db.execSQL(query);

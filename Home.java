@@ -42,7 +42,7 @@ public class Home extends AppCompatActivity {
     }
 
     public void onClickSave(View view) {
-        Contact contact = new Contact(Long.parseLong(numberField.getText().toString()), lmpField.getText().toString());
+        Contact contact = new Contact(numberField.getText().toString(), lmpField.getText().toString());
         dbHandler.addContact(contact);
         numberField.setText("");
         lmpField.setText("");
