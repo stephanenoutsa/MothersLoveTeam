@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -39,21 +41,39 @@ public class Contacts extends AppCompatActivity {
 
         contacts = (TextView) findViewById(R.id.contacts);
         dbHandler = new MyDBHandler(this, null, null, 1);
-        Runnable r = new Runnable() {
+
+        final Handler handler = new Handler() {
             @Override
-            public void run() {
-                //dbString = dbHandler.databaseToString();
+            public void handleMessage(Message msg) {
+                /*int count = dbHandler.getContactsCount();
+                for(int i = 1; i <= count; i++) {
+                    contact = dbHandler.getContact(i);
+                    if(contact.getContactphone() != null && contact.getContactlmp() != null) {
+                        dbString += i + "\t" + contact.getContactphone() + "\t" + contact.getContactlmp() + "\n";
+                    }
+                    else {
+                        dbString += "";
+                    }
+                }
+                contacts.setText(dbString);*/
                 int i = 1;
                 dbContacts = dbHandler.getAllContacts();
                 for(Contact cn : dbContacts) {
                     dbString += i + "    " + cn.getContactphone() + "    " + cn.getContactlmp() + "\n";
                     i++;
                 }
+                contacts.setText(dbString);
+            }
+        };
+
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessage(0);
             }
         };
         Thread thread = new Thread(r);
         thread.start();
-        contacts.setText(dbString);
     }
 
     @Override
