@@ -43,7 +43,7 @@ public class Contacts extends AppCompatActivity {
             @Override
             public void run() {
                 //dbString = dbHandler.databaseToString();
-                int i = 0;
+                int i = 1;
                 dbContacts = dbHandler.getAllContacts();
                 for(Contact cn : dbContacts) {
                     dbString += i + "    " + cn.getContactphone() + "    " + cn.getContactlmp() + "\n";
