@@ -12,6 +12,8 @@ import java.util.List;
 
 public class MyDBHandler extends SQLiteOpenHelper {
 
+    Context context;
+
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "contacts.db";
     public static final String TABLE_CONTACTS = "contacts";
@@ -21,6 +23,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     // Get single contact from the CONTACTS table
     public Contact getContact(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor c = db.query(TABLE_CONTACTS, new String[] {CONTACT_COLUMN_ID, CONTACT_COLUMN_PHONE,
                 CONTACT_COLUMN_LMP}, CONTACT_COLUMN_ID + "=?", new String[] {String.valueOf(id)},
@@ -61,20 +64,25 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         Contact contact = new Contact(Integer.parseInt(c.getString(0)), c.getString(1), c.getString(2));
 
+        db.close();
+
         return contact;
     }
 
     // Get all contacts from the CONTACTS table
     public List<Contact> getAllContacts() {
-        List<Contact> contactList = new ArrayList<Contact>();
+        List<Contact> contactList = new ArrayList<>();
 
-        String query = "SELECT * FROM " + TABLE_CONTACTS;
+        String query = "SELECT * FROM " + TABLE_CONTACTS + ";";
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(query, null);
 
+        if(c != null)
+            c.moveToFirst();
+
         // Loop through all rows and add to list
-        if(c.moveToFirst()) {
+        /*if(c.moveToFirst()) {
             do {
                 Contact contact = new Contact();
                 contact.set_contactid(Integer.parseInt(c.getString(0)));
@@ -83,6 +91,16 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
                 contactList.add(contact);
             } while (c.moveToNext());
+        }*/
+        while(!c.isAfterLast()) {
+            Contact contact = new Contact();
+            contact.set_contactid(Integer.parseInt(c.getString(0)));
+            contact.setContactphone(c.getString(1));
+            contact.setContactlmp(c.getString(2));
+
+            contactList.add(contact);
+
+            c.moveToNext();
         }
 
         return contactList;
@@ -90,12 +108,16 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     // Get contacts count
     public int getContactsCount() {
-        String query = "SELECT * FROM " + TABLE_CONTACTS;
+        String query = "SELECT * FROM " + TABLE_CONTACTS + ";";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(query, null);
-        c.close();
 
-        return c.getCount();
+        try {
+            return c.getCount();
+        } finally {
+            c.close();
+            db.close();
+        }
     }
 
     // Update single contact in the CONTACTS table
@@ -154,7 +176,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public String databaseToString() {
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_CONTACTS + " WHERE 1";
+        String query = "SELECT * FROM " + TABLE_CONTACTS + " WHERE 1;";
 
         // Cursor to point to a location in your results
         Cursor c = db.rawQuery(query, null);
